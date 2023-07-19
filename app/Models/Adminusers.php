@@ -106,7 +106,6 @@ class Adminusers extends Model
                         ->count();
 
             if($checkUsersPhoneNumber == 0){
-                $loginUser = Session::all();
                 $objUsers = new Adminusers();
                 $objUsers->first_name = $requestData['first_name'];
                 $objUsers->last_name = $requestData['last_name'];
@@ -126,7 +125,7 @@ class Adminusers extends Model
                     unset($requestData['password']);
                     unset($requestData['new_confirm_password']);
                     $objAudittrails = new Audittrails();
-                    $res = $objAudittrails->add_audit('Add', str_replace(".", "/", $currentRoute) , json_encode($requestData->input()) , 'Admin users');
+                    $res = $objAudittrails->add_audit('Insert', str_replace(".", "/", $currentRoute) , json_encode($requestData->input()) , 'Admin users');
                     return 'added';
                 }else{
                     return 'wrong';
@@ -150,7 +149,6 @@ class Adminusers extends Model
                         ->count();
 
             if($checkUsersPhoneNumber == 0){
-                $loginUser = Session::all();
                 $objUsers = Adminusers::find($requestData['editId']);
                 $objUsers->first_name = $requestData['first_name'];
                 $objUsers->last_name = $requestData['last_name'];
