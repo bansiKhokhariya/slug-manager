@@ -184,6 +184,29 @@ class DocumentController extends Controller
                 $slug = $objSlug->get_slug_by_category($request->input('data')['category']);
                 echo json_encode($slug);
                 break;
+
+            case 'common-activity':
+                $data = $request->input('data');
+                $objDocument = new Document();
+                $result = $objDocument->common_activity($data);
+                if ($result) {
+                    $return['status'] = 'success';
+                    if($data['activity'] == 'delete-records'){
+                        $return['message'] = "Documents details successfully deleted.";
+                    }elseif($data['activity'] == 'active-records'){
+                        $return['message'] = "Documents details successfully actived.";
+                    }else{
+                        $return['message'] = "Documents details successfully deactived.";
+                    }
+                    $return['redirect'] = route('document.list');
+                } else {
+                    $return['status'] = 'error';
+                    $return['jscode'] = '$("#loader").hide();';
+                    $return['message'] = 'It seems like something is wrong';;
+                }
+
+                echo json_encode($return);
+                exit;
         }
     }
 

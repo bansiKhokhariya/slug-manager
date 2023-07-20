@@ -39,6 +39,80 @@ var Document = (function () {
             });
         });
 
+        $("body").on("click", ".delete-records", function() {
+            var id = $(this).data('id');
+            setTimeout(function() {
+                $('.yes-sure:visible').attr('data-id', id);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure', function() {
+            var id = $(this).attr('data-id');
+            var data = { id: id, 'activity': 'delete-records', _token: $('#_token').val() };
+                $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url:baseurl + "document/ajaxcall",
+                data: { 'action': 'common-activity', 'data': data },
+                success: function(data) {
+                    $("#loader").show();
+                    handleAjaxResponse(data);
+                }
+            });
+        });
+
+        $("body").on("click", ".deactive-records", function() {
+            var id = $(this).data('id');
+            setTimeout(function() {
+                $('.yes-sure-deactive:visible').attr('data-id', id);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure-deactive', function() {
+            var id = $(this).attr('data-id');
+            var data = { id: id, 'activity': 'deactive-records', _token: $('#_token').val() };
+                $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url:baseurl + "document/ajaxcall",
+                data: { 'action': 'common-activity', 'data': data },
+                success: function(data) {
+                    $("#loader").show();
+                    handleAjaxResponse(data);
+                }
+            });
+        });
+
+        $("body").on("click", ".active-records", function() {
+            var id = $(this).data('id');
+
+            setTimeout(function() {
+                $('.yes-sure-active:visible').attr('data-id', id);
+            }, 500);
+        })
+
+        $('body').on('click', '.yes-sure-active', function() {
+            var id = $(this).attr('data-id');
+
+            var data = { id: id, 'activity': 'active-records', _token: $('#_token').val() };
+                $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url:baseurl + "document/ajaxcall",
+                data: { 'action': 'common-activity', 'data': data },
+                success: function(data) {
+                    $("#loader").show();
+                    handleAjaxResponse(data);
+                }
+            });
+        });
+
     }
 
     var addDocument = function () {

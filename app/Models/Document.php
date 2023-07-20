@@ -159,4 +159,34 @@ class Document extends Model
             ->where('document.id', $id)
             ->first();
     }
+
+    public function common_activity($requestData){
+
+        $objDocument = Document::find($requestData['id']);
+        if($requestData['activity'] == 'delete-records'){
+            $objDocument->is_deleted = "Y";
+            $event = 'Delete Records';
+        }
+
+        if($requestData['activity'] == 'active-records'){
+            $objDocument->status = "A";
+            $event = 'Active Records';
+        }
+
+        if($requestData['activity'] == 'deactive-records'){
+            $objDocument->status = "I";
+            $event = 'Deactive Records';
+        }
+
+        $objDocument->updated_at = date("Y-m-d H:i:s");
+        if($objDocument->save()){
+            $currentRoute = Route::current()->getName();
+            unset($requestData['_token']);
+            $objAudittrails = new Audittrails();
+            $res = $objAudittrails->add_audit($event, str_replace(".", "/", $currentRoute) , json_encode($requestData) , 'Documents');
+            return true;
+        }else{
+            return false ;
+        }
+    }
 }
