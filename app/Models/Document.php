@@ -78,7 +78,9 @@ class Document extends Model
 
             $i++;
             $nestedData = array();
-            $nestedData[] = $i;
+            $nestedData[] = '<label class="checkbox checkbox-lg">
+            <input type="checkbox" data-id="' . $row["id"] . '" class="single-check" >
+            <span></span></label>';
             $nestedData[] = $row['title'];
             $nestedData[] = $row['slug'];
             $nestedData[] = $row['topic'];

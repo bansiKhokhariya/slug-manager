@@ -35,7 +35,11 @@
                 <table class="table table-bordered table-checkable" id="document-list">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" class="all-check"></th>
+                            <th>
+                                <label class="checkbox checkbox-lg">
+                                <input type="checkbox" class="all-check" >
+                                <span></span></label>
+                            </th>
                             <th>Title</th>
                             <th>Sub-title</th>
                             <th>Topic</th>

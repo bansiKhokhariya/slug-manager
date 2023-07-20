@@ -15,6 +15,30 @@ var Document = (function () {
             'setColumnWidth': columnWidth
         };
         getDataTable(arrList);
+
+        $('body').on('change', '.all-check', function(){
+            if ($(this).prop('checked')==true){
+                $('.single-check:visible').prop('checked', true);
+            }else{
+                $('.single-check:visible').prop('checked', false);
+            }
+        });
+
+        $('body').on('change', '.single-check', function(){
+            var temp_master = true;
+            $('.single-check').each(function () {
+                if($(this).prop('checked') != true) {
+                    temp_master = false;
+                }
+
+                if(temp_master){
+                    $(".all-check").prop('checked', true);
+                }else{
+                    $(".all-check").prop('checked', false);
+                }
+            });
+        });
+
     }
 
     var addDocument = function () {
