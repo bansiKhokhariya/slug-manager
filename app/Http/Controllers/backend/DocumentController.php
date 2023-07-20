@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Document;
 use Illuminate\Http\Request;
 use Config;
 use App\Models\Slugcategory;
 use App\Models\Slug;
+use App\Models\Document;
 
 class DocumentController extends Controller
 {
@@ -172,6 +172,13 @@ class DocumentController extends Controller
     {
         $action = $request->input('action');
         switch ($action) {
+            case 'getdatatable':
+                $objDocument = new Document();
+                $list = $objDocument->getdatatable();
+
+                echo json_encode($list);
+                break;
+
             case 'change-category':
                 $objSlug = new Slug();
                 $slug = $objSlug->get_slug_by_category($request->input('data')['category']);
@@ -179,5 +186,5 @@ class DocumentController extends Controller
                 break;
         }
     }
-    
+
 }

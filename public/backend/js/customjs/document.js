@@ -1,4 +1,22 @@
 var Document = (function () {
+    var list = function(){
+        var dataArr = {};
+        var columnWidth = { "width": "5%", "targets": 0 };
+        var arrList = {
+            'tableID': '#document-list',
+            'ajaxURL': baseurl + "document/ajaxcall",
+            'ajaxAction': 'getdatatable',
+            'postData': dataArr,
+            'hideColumnList': [],
+            'noSortingApply': [0, 8],
+            'noSearchApply': [0, 8],
+            'defaultSortColumn': [0],
+            'defaultSortOrder': 'DESC',
+            'setColumnWidth': columnWidth
+        };
+        getDataTable(arrList);
+    }
+
     var addDocument = function () {
         $(".select2").select2();
         var form = $("#add-document");
@@ -145,6 +163,7 @@ var Document = (function () {
             }
         });
     }
+
     return {
         init: function () {
             list();

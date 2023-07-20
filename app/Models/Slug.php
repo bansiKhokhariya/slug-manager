@@ -57,14 +57,7 @@ class Slug extends Model
 
         $resultArr = $query->skip($requestData['start'])
             ->take($requestData['length'])
-            ->select(
-                'slugs.id',
-                'slugs_category.category',
-                'slugs.slug',
-                DB::raw("CONCAT(u1.first_name,' ',u1.last_name) as addBy"),
-                DB::raw("CONCAT(u2.first_name,' ',u2.last_name) as updatedBy"),
-                'slugs.status'
-            )
+            ->select( 'slugs.id', 'slugs_category.category', 'slugs.slug', DB::raw("CONCAT(u1.first_name,' ',u1.last_name) as addBy"), DB::raw("CONCAT(u2.first_name,' ',u2.last_name) as updatedBy"), 'slugs.status')
             ->get();
 
         $data = array();
