@@ -66,6 +66,7 @@ class Document extends Model
         foreach ($resultArr as $row) {
 
             $actionhtml  = '';
+            $actionhtml .= '<a href="' . route('document.generate-pdf', $row['id']) . '" class="btn btn-icon"><i class="fa fa-file-pdf-o text-info"> </i></a>';
             $actionhtml .= '<a href="' . route('document.edit', $row['id']) . '" class="btn btn-icon"><i class="fa fa-edit text-warning"> </i></a>';
             if ($row['status'] == 'A') {
                 $status = '<span class="label label-lg label-light-success label-inline">Active</span>';
@@ -155,7 +156,7 @@ class Document extends Model
         return Document::from('document')
             ->join('slugs', 'slugs.id', '=', 'document.subTitle')
             ->join('slugs_category', 'slugs_category.id', '=', 'slugs.category')
-            ->select('slugs_category.id as categoryId', 'document.title', 'document.subTitle', 'document.status', 'document.topic', 'document.subTopic', 'document.content', 'document.reference', 'document.id')
+            ->select('slugs_category.id as categoryId', 'slugs.slug', 'slugs_category.category','document.title', 'document.subTitle', 'document.status', 'document.topic', 'document.subTopic', 'document.content', 'document.reference', 'document.id')
             ->where('document.id', $id)
             ->first();
     }

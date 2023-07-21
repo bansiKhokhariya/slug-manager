@@ -30,3 +30,4 @@ Route::get('/clear-cache', function() {
 
 Route::get('/', [LoginController::class, 'login'])->name('admin-login');
 Route::post('auth-admin-login', [LoginController::class, 'auth_admin_login'])->name('auth-admin-login');
+Route::get('generate-pdf', [LoginController::class, 'generatePDF']);

@@ -8,6 +8,7 @@ use Config;
 use Auth;
 use Session;
 use Hash;
+use PDF;
 
 class LoginController extends Controller
 {
@@ -71,5 +72,17 @@ class LoginController extends Controller
     public function resetGuard() {
         Auth::logout();
         Auth::guard('admin')->logout();
+    }
+
+    public function generatePDF()
+    {
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y')
+        ];
+
+        $pdf = PDF::loadView('myPDF', $data);
+
+        return $pdf->download('itsolutionstuff.pdf');
     }
 }

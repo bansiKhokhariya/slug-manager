@@ -51,5 +51,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function() {
     Route::post('document/save-edit', [DocumentController::class, 'saveEdit'])->name('document.save-edit');
     Route::post('document/ajaxcall', [DocumentController::class, 'ajaxcall'])->name('document.ajaxcall');
 
+    Route::get('document/generate-pdf/{id}', [DocumentController::class, 'generatePdf'])->name('document.generate-pdf');
+
 
 });

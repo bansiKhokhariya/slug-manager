@@ -8,6 +8,7 @@ use Config;
 use App\Models\Slugcategory;
 use App\Models\Slug;
 use App\Models\Document;
+use PDF;
 
 class DocumentController extends Controller
 {
@@ -191,11 +192,11 @@ class DocumentController extends Controller
                 $result = $objDocument->common_activity($data);
                 if ($result) {
                     $return['status'] = 'success';
-                    if($data['activity'] == 'delete-records'){
+                    if ($data['activity'] == 'delete-records') {
                         $return['message'] = "Documents details successfully deleted.";
-                    }elseif($data['activity'] == 'active-records'){
+                    } elseif ($data['activity'] == 'active-records') {
                         $return['message'] = "Documents details successfully actived.";
-                    }else{
+                    } else {
                         $return['message'] = "Documents details successfully deactived.";
                     }
                     $return['redirect'] = route('document.list');
@@ -210,4 +211,14 @@ class DocumentController extends Controller
         }
     }
 
+    public function generatePdf($id)
+    {
+
+        $objDocument = new Document();
+        $data['document_details'] = $objDocument->get_document_details($id);
+        
+        $pdf = PDF::loadView('backend.pages.document.slugPDF', $data);
+
+        return $pdf->download('slug.pdf');
+    }
 }
